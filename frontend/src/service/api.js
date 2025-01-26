@@ -3,10 +3,15 @@ import { getAccessToken } from "../utils/getAccessToken";
 
 export const hackathonApi = createApi({
   reducerPath: "hackathonApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/" }),
+  baseQuery: fetchBaseQuery({
+    // baseUrl: "https://hackathonmanagementsystem.vercel.app/api/",
+    baseUrl: "http://localhost:5000/api/",
+  }),
+  tagTypes: ["hackthon"],
   endpoints: (builder) => ({
     getAllHackathon: builder.query({
       query: () => `hackathons`,
+      providesTags: ["hackthon"],
     }),
     getHackathonById: builder.query({
       query: (id) => ({
@@ -16,6 +21,7 @@ export const hackathonApi = createApi({
           "Content-Type": "application/json",
         },
       }),
+      providesTags: ["hackthon"],
     }),
     getHackathonByUserId: builder.query({
       query: () => ({
@@ -38,6 +44,7 @@ export const hackathonApi = createApi({
         },
       }),
     }),
+
     createHackathon: builder.mutation({
       query: (body) => ({
         url: `hackathons`,
@@ -48,7 +55,9 @@ export const hackathonApi = createApi({
           "Content-Type": "application/json",
         },
       }),
+      invalidatesTags: ["hackthon"],
     }),
+
     loginUser: builder.mutation({
       query: (body) => ({
         url: `auth/login`,
@@ -56,6 +65,7 @@ export const hackathonApi = createApi({
         body: body,
       }),
     }),
+
     createUser: builder.mutation({
       query: (body) => ({
         url: `auth/register`,
@@ -63,12 +73,18 @@ export const hackathonApi = createApi({
         body: body,
       }),
     }),
+
     registerHackathon: builder.mutation({
       query: ({ id, ...body }) => ({
         url: `hackathons/${id}/register`,
         method: "Post",
         body: body,
+        headers: {
+          Authorization: `Bearer ${getAccessToken()}`,
+          "Content-Type": "application/json",
+        },
       }),
+      invalidatesTags: ["hackthon"],
     }),
   }),
 });

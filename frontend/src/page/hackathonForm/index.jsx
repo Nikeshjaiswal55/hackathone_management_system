@@ -3,9 +3,12 @@ import * as Yup from "yup";
 import { Form as BootstrapForm, Row, Col } from "react-bootstrap";
 import { Button } from "../../components/button";
 import { useCreateHackathonMutation } from "../../service/api";
+import Loader from "../../components/loader/loader";
+import { useNavigate } from "react-router-dom";
 
 const HackathonForm = () => {
-  const [create, { isSuccess }] = useCreateHackathonMutation();
+  const navigate = useNavigate();
+  const [create, { isLoading }] = useCreateHackathonMutation();
   const initialValues = {
     contestName: "",
     startDate: "",
@@ -33,8 +36,11 @@ const HackathonForm = () => {
   });
 
   const onSubmit = async (values) => {
-    console.log(values);
-    await create(values);
+    await create(values).then((res) => {
+      if (res?.data) {
+        navigate("/more-hackthon/create");
+      }
+    });
   };
 
   return (
@@ -57,6 +63,7 @@ const HackathonForm = () => {
                   </BootstrapForm.Label>
                   <Field
                     type="text"
+                    placeholder="Enter contest name"
                     name="contestName"
                     className="form-control"
                     id="contestName"
@@ -73,6 +80,7 @@ const HackathonForm = () => {
                   </BootstrapForm.Label>
                   <Field
                     type="date"
+                    placeholder="Enter start date of contest"
                     name="startDate"
                     className="form-control"
                     id="startDate"
@@ -90,6 +98,7 @@ const HackathonForm = () => {
                     End Date
                   </BootstrapForm.Label>
                   <Field
+                    placeholder="Enter end date of contest"
                     type="date"
                     name="endDate"
                     className="form-control"
@@ -107,6 +116,7 @@ const HackathonForm = () => {
                   </BootstrapForm.Label>
                   <Field
                     type="text"
+                    placeholder="Enter organization type (like : school,college,company,other)"
                     name="organizationType"
                     className="form-control"
                     id="organizationType"
@@ -125,6 +135,7 @@ const HackathonForm = () => {
                   </BootstrapForm.Label>
                   <Field
                     type="text"
+                    name="Enter organization name "
                     name="organizationName"
                     className="form-control"
                     id="organizationName"
@@ -141,6 +152,7 @@ const HackathonForm = () => {
                   </BootstrapForm.Label>
                   <Field
                     type="text"
+                    placeholder="Enter tagline for contest"
                     name="tagLine"
                     className="form-control"
                     id="tagLine"
@@ -159,6 +171,7 @@ const HackathonForm = () => {
                   </BootstrapForm.Label>
                   <Field
                     as="textarea"
+                    placeholder="Enter description for contest"
                     name="description"
                     className="form-control"
                     id="description"
@@ -178,6 +191,7 @@ const HackathonForm = () => {
                   </BootstrapForm.Label>
                   <Field
                     type="date"
+                    placeholder="Enter registration deadline"
                     name="registrationDeadline"
                     className="form-control"
                     id="registrationDeadline"
@@ -190,13 +204,22 @@ const HackathonForm = () => {
                 </Col>
               </Row>
               <div className="d-flex justify-content-center">
-                <Button
-                  type="submit"
-                  className="mt-3"
-                  variant="lightGreen"
-                  disabled={isSubmitting}
-                  text="Create Contest"
-                />
+                {isLoading ? (
+                  <Button
+                    type="submit"
+                    className="px-5 my-4"
+                    variant="lightGreen"
+                    text={<Loader />}
+                  />
+                ) : (
+                  <Button
+                    type="submit"
+                    className="mt-3"
+                    variant="lightGreen"
+                    disabled={isSubmitting}
+                    text="Create Contest"
+                  />
+                )}
               </div>
             </Form>
           )}

@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { Button } from "../../components/button";
 import { useCreateUserMutation } from "../../service/api";
 import { Link, useNavigate } from "react-router-dom";
+import Loader from "../../components/loader/loader";
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const RegistrationForm = () => {
     confirmPassword: "",
   };
 
-  const [createUser] = useCreateUserMutation();
+  const [createUser, { isLoading }] = useCreateUserMutation();
 
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
@@ -64,6 +65,7 @@ const RegistrationForm = () => {
                   </label>
                   <Field
                     type="text"
+                    placeholder="Enter your name"
                     name="name"
                     className="form-control"
                     id="name"
@@ -80,6 +82,7 @@ const RegistrationForm = () => {
                   </label>
                   <Field
                     type="email"
+                    placeholder="Enter your email"
                     name="email"
                     className="form-control"
                     id="email"
@@ -96,6 +99,7 @@ const RegistrationForm = () => {
                   </label>
                   <Field
                     type="text"
+                    placeholder="Enter your mobile number"
                     name="mobileNumber"
                     className="form-control"
                     id="mobileNumber"
@@ -112,6 +116,7 @@ const RegistrationForm = () => {
                   </label>
                   <Field
                     type="password"
+                    placeholder="Enter your password"
                     name="password"
                     className="form-control"
                     id="password"
@@ -129,6 +134,7 @@ const RegistrationForm = () => {
                   <Field
                     type="password"
                     name="confirmPassword"
+                    placeholder="Re-enter password"
                     className="form-control"
                     id="confirmPassword"
                   />
@@ -142,12 +148,21 @@ const RegistrationForm = () => {
                   <Link to="/login">have a account?</Link>
                 </p>
                 <div className="d-flex justify-content-center">
-                  <Button
-                    type="submit"
-                    className="px-5 my-4"
-                    variant="lightGreen"
-                    text="Create Account"
-                  />
+                  {isLoading ? (
+                    <Button
+                      type="submit"
+                      className="px-5 my-4"
+                      variant="lightGreen"
+                      text={<Loader />}
+                    />
+                  ) : (
+                    <Button
+                      type="submit"
+                      className="px-5 my-4"
+                      variant="lightGreen"
+                      text="Create Account"
+                    />
+                  )}
                 </div>
               </Form>
             )}

@@ -5,6 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken } from "../../utils/getAccessToken";
+import { Button } from "../button";
 
 export const NavigationBar = () => {
   const navigate = useNavigate();
@@ -44,14 +45,6 @@ export const NavigationBar = () => {
                 Logout
               </Nav.Link>
             </Nav>
-            {/* <Form className="d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-            </Form> */}
             {isAccessTokenExist ? (
               <Dropdown className="d-none d-lg-block">
                 <Dropdown.Toggle
@@ -86,7 +79,12 @@ export const NavigationBar = () => {
                 </Dropdown.Menu>
               </Dropdown>
             ) : (
-              ""
+              <Button
+                text="login"
+                className="px-5"
+                variant="outline-light-green"
+                onClick={() => navigate("/login")}
+              />
             )}
           </Offcanvas.Body>
         </Navbar.Offcanvas>

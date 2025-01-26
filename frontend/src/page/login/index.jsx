@@ -3,10 +3,11 @@ import * as Yup from "yup";
 import { Button } from "../../components/button";
 import { useLoginUserMutation } from "../../service/api";
 import { Link, useNavigate } from "react-router-dom";
+import Loader from "../../components/loader/loader";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const [login] = useLoginUserMutation();
+  const [login, { isLoading }] = useLoginUserMutation();
   const initialValues = {
     email: "",
     password: "",
@@ -54,6 +55,7 @@ const LoginForm = () => {
                   </label>
                   <Field
                     type="email"
+                    placeholder="Enter your email"
                     name="email"
                     className="form-control"
                     id="email"
@@ -70,6 +72,7 @@ const LoginForm = () => {
                   </label>
                   <Field
                     type="password"
+                    placeholder="Enter your password"
                     name="password"
                     className="form-control"
                     id="password"
@@ -84,12 +87,21 @@ const LoginForm = () => {
                   <Link to="/register">create a account?</Link>
                 </p>
                 <div className="d-flex justify-content-center">
-                  <Button
-                    type="submit"
-                    className="px-5 my-4"
-                    variant="lightGreen"
-                    text="Login"
-                  />
+                  {isLoading ? (
+                    <Button
+                      type="submit"
+                      className="px-5 my-4"
+                      variant="lightGreen"
+                      text={<Loader />}
+                    />
+                  ) : (
+                    <Button
+                      type="submit"
+                      className="px-5 my-4"
+                      variant="lightGreen"
+                      text="Login"
+                    />
+                  )}
                 </div>
               </Form>
             )}
