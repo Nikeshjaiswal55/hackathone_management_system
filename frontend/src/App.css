@@ -1,0 +1,89 @@
+#root {
+  /* max-width: 1280px; */
+  margin: 0 auto;
+  padding: 0px;
+  background-color: #121418;
+  box-sizing: border-box;
+}
+
+.bg_box {
+  background-color: #1e1f2a;
+}
+
+.layout {
+  height: 100vh;
+  overflow: auto;
+  padding-bottom: 2rem;
+}
+
+/* .navbar_bg {
+  background-color: black;
+  color: white;
+} */
+
+.card_padding {
+  padding: 1.5rem;
+  border: 1px solid #35363f;
+  background-color: #1f202a !important;
+  border-radius: 1rem;
+}
+
+.fs-24 {
+  font-size: 1.5rem;
+}
+
+.fs-20 {
+  font-size: 1.25rem;
+}
+
+.fs-16 {
+  font-size: 1rem;
+}
+
+.fs-14 {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.fs-12 {
+  font-size: 0.75rem;
+}
+
+.btn-lightGreen {
+  background-color: #20d761 !important;
+}
+
+.btn-outline-light-green {
+  border: 2px solid #20d761 !important;
+  color: white;
+}
+.btn-outline-light-green:hover {
+  background-color: #68e995 !important;
+  color: black;
+}
+
+.btn-lightGreen:hover {
+  background-color: #68e995 !important;
+  color: black;
+}
+
+.image_color {
+  height: 7rem;
+  filter: invert(1);
+}
+
+.dropdown-menu[data-bs-popper] {
+  left: -7rem !important;
+}
+
+.navbar-toggler {
+  background-color: white;
+}
+
+.login-form {
+  width: 25rem;
+}
+
+.light_green {
+  color: #20d761;
+}
