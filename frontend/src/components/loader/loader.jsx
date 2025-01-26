@@ -1,7 +1,11 @@
 function Loader() {
   return (
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
+    <div
+      class="spinner-border"
+      role="status"
+      style={{ height: "20px", width: "20px" }}
+    >
+      <span class="visually-hidden"></span>
     </div>
   );
 }
