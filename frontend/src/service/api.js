@@ -4,8 +4,8 @@ import { getAccessToken } from "../utils/getAccessToken";
 export const hackathonApi = createApi({
   reducerPath: "hackathonApi",
   baseQuery: fetchBaseQuery({
-    // baseUrl: "https://hackathonmanagementsystem.vercel.app/api/",
-    baseUrl: "http://localhost:5000/api/",
+    baseUrl: "https://hackathonmanagementsystem.vercel.app/api/",
+    // baseUrl: "http://localhost:5000/api/",
   }),
   tagTypes: ["hackthon"],
   endpoints: (builder) => ({
