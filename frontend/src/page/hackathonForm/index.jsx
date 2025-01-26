@@ -135,7 +135,7 @@ const HackathonForm = () => {
                   </BootstrapForm.Label>
                   <Field
                     type="text"
-                    name="Enter organization name "
+                    placeholder="Enter organization name"
                     name="organizationName"
                     className="form-control"
                     id="organizationName"
