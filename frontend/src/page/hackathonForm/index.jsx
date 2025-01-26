@@ -5,6 +5,7 @@ import { Button } from "../../components/button";
 import { useCreateHackathonMutation } from "../../service/api";
 import Loader from "../../components/loader/loader";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const HackathonForm = () => {
   const navigate = useNavigate();
@@ -36,11 +37,16 @@ const HackathonForm = () => {
   });
 
   const onSubmit = async (values) => {
-    await create(values).then((res) => {
-      if (res?.data) {
-        navigate("/more-hackthon/create");
-      }
-    });
+    await create(values)
+      .then((res) => {
+        if (res?.data) {
+          toast.success("Contest created successfully");
+          navigate("/more-hackthon/create");
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   return (

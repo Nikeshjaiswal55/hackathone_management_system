@@ -4,6 +4,7 @@ import { Button } from "../../components/button";
 import { useLoginUserMutation } from "../../service/api";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../../components/loader/loader";
+import { toast } from "react-hot-toast";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -23,15 +24,18 @@ const LoginForm = () => {
   });
 
   const handleSubmit = (values) => {
-    console.log("Login Data:", values);
-    login(values).then((res) => {
-      console.log("res", res);
-      if (res?.data?.token) {
-        localStorage.setItem("token", res?.data?.token);
-        localStorage.setItem("user_id", res?.data?.userId);
-        navigate("/");
-      }
-    });
+    login(values)
+      .then((res) => {
+        if (res?.data?.token) {
+          localStorage.setItem("token", res?.data?.token);
+          localStorage.setItem("user_id", res?.data?.userId);
+          toast.success("login successfully!");
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   return (

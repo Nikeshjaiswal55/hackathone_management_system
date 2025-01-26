@@ -15,7 +15,6 @@ function ViewMoreHackathon() {
     useGetHackathonByUserIdQuery();
   const { data: registerHackathons, isLoading: registerHackload } =
     useGetRegisterHackathonByUserIdQuery();
-  console.log("id", id != "create");
   const dashBoardHackathones =
     id !== "create" ? registerHackathons : createdHackathons;
   const activeHackathons = id == "active" ? createdHackathons : data;

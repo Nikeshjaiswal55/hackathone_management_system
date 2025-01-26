@@ -4,6 +4,7 @@ import { Button } from "../../components/button";
 import { useCreateUserMutation } from "../../service/api";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../../components/loader/loader";
+import toast from "react-hot-toast";
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
@@ -34,13 +35,17 @@ const RegistrationForm = () => {
   });
 
   const handleSubmit = (values) => {
-    console.log("Registration Data:", values);
-    createUser(values).then((res) => {
-      if (res.data?.token) {
-        localStorage.setItem("token", res.data?.token);
-        navigate("/login");
-      }
-    });
+    createUser(values)
+      .then((res) => {
+        if (res.data?.token) {
+          localStorage.setItem("token", res.data?.token);
+          toast.success("Registered successfully");
+          navigate("/login");
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   return (

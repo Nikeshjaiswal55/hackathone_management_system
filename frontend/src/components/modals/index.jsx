@@ -2,15 +2,21 @@ import Modal from "react-bootstrap/Modal";
 import { Button } from "../button";
 import { useRegisterHackathonMutation } from "../../service/api";
 import Loader from "../loader/loader";
+import toast from "react-hot-toast";
 
 function ConfirmationModal({ id, show, handleClose }) {
   const [register, { isLoading }] = useRegisterHackathonMutation();
   const handleRegistration = async () => {
-    await register({ id }).then((res) => {
-      if (res) {
-        handleClose();
-      }
-    });
+    await register({ id })
+      .then((res) => {
+        if (res) {
+          toast.success("contest registration successfull");
+          handleClose();
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
   return (
     <Modal show={show} onHide={handleClose}>
