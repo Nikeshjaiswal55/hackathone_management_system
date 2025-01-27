@@ -6,10 +6,11 @@ import { useCreateHackathonMutation } from "../../service/api";
 import Loader from "../../components/loader/loader";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const HackathonForm = () => {
   const navigate = useNavigate();
-  const [create, { isLoading }] = useCreateHackathonMutation();
+  const [create, { isLoading, isError, error }] = useCreateHackathonMutation();
   const initialValues = {
     contestName: "",
     startDate: "",
@@ -20,6 +21,12 @@ const HackathonForm = () => {
     description: "",
     registrationDeadline: "",
   };
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error?.data.message);
+    }
+  }, [isError]);
 
   const validationSchema = Yup.object({
     contestName: Yup.string().required("Contest name is required"),
@@ -45,7 +52,7 @@ const HackathonForm = () => {
         }
       })
       .catch((error) => {
-        toast.error(error.message);
+        toast.error(error?.data.message);
       });
   };
 

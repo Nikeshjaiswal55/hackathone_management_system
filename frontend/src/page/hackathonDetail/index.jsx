@@ -6,15 +6,25 @@ import {
 import { ContestCard, RegistrationCard } from "../../components/card";
 import { SubHeading } from "../../components/subHeader";
 import ConfirmationModal from "../../components/modals";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HomePageLoader } from "../../components/loader/homePageSckeleton";
+import toast from "react-hot-toast";
 
 function HackathonDetail() {
   const { id } = useParams();
-  const { data, isLoading } = useGetHackathonByIdQuery(id);
-  const { data: allHackathon, isLoading: hackathonLoading } =
-    useGetAllHackathonQuery();
+  const { data, isLoading, isError } = useGetHackathonByIdQuery(id);
+  const {
+    data: allHackathon,
+    isLoading: hackathonLoading,
+    isError: hackathonerror,
+  } = useGetAllHackathonQuery();
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (isError || hackathonerror) {
+      toast.error("something went wrong");
+    }
+  }, [isError, hackathonerror]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

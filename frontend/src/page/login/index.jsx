@@ -5,10 +5,11 @@ import { useLoginUserMutation } from "../../service/api";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../../components/loader/loader";
 import { toast } from "react-hot-toast";
+import { useEffect } from "react";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const [login, { isLoading }] = useLoginUserMutation();
+  const [login, { isLoading, isError, error }] = useLoginUserMutation();
   const initialValues = {
     email: "",
     password: "",
@@ -34,9 +35,15 @@ const LoginForm = () => {
         }
       })
       .catch((error) => {
-        toast.error(error.message);
+        toast.error(error?.data.message);
       });
   };
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error?.data.message);
+    }
+  }, [isError]);
 
   return (
     <div className="container mt-4 ">

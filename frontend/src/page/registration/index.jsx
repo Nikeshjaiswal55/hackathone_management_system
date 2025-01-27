@@ -5,6 +5,7 @@ import { useCreateUserMutation } from "../../service/api";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../../components/loader/loader";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
@@ -16,7 +17,13 @@ const RegistrationForm = () => {
     confirmPassword: "",
   };
 
-  const [createUser, { isLoading }] = useCreateUserMutation();
+  const [createUser, { isLoading, isError, error }] = useCreateUserMutation();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error?.data.message);
+    }
+  }, [isError]);
 
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
@@ -44,7 +51,7 @@ const RegistrationForm = () => {
         }
       })
       .catch((error) => {
-        toast.error(error.message);
+        toast.error(error?.data.message);
       });
   };
 

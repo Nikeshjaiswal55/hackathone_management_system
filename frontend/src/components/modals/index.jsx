@@ -3,9 +3,18 @@ import { Button } from "../button";
 import { useRegisterHackathonMutation } from "../../service/api";
 import Loader from "../loader/loader";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 function ConfirmationModal({ id, show, handleClose }) {
-  const [register, { isLoading }] = useRegisterHackathonMutation();
+  const [register, { isLoading, isError, error }] =
+    useRegisterHackathonMutation();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error?.data.message);
+    }
+  }, [isError]);
+
   const handleRegistration = async () => {
     await register({ id })
       .then((res) => {
@@ -15,7 +24,7 @@ function ConfirmationModal({ id, show, handleClose }) {
         }
       })
       .catch((error) => {
-        toast.error(error.message);
+        toast.error(error?.data.message);
       });
   };
   return (

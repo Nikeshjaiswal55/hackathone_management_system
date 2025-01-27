@@ -108,7 +108,6 @@ const getHackathonById = async (req, res) => {
 const getHackathonsByUserId = async (req, res) => {
   try {
     const { id } = req.user;
-    console.log("id", id);
 
     const hackathons = await Hackathon.find({
       createdBy: id,

@@ -5,9 +5,21 @@ import RegistedContest from "../../assets/participate_contest copy.png";
 import ActiveContest from "../../assets/active_contest.png";
 import { useGetHackathonByUserIdQuery } from "../../service/api";
 import DashboardSkeleton from "../../components/loader/DasboardPageSkeleton";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const Dashboard = () => {
-  const { data: createdHackathons, isLoading } = useGetHackathonByUserIdQuery();
+  const {
+    data: createdHackathons,
+    isLoading,
+    isError,
+  } = useGetHackathonByUserIdQuery();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error("something went wrong");
+    }
+  }, [isError]);
 
   if (isLoading) {
     return <DashboardSkeleton />;

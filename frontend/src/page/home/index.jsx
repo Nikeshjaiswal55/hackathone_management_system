@@ -4,8 +4,17 @@ import { ContestCard, HeroCard } from "../../components/card";
 import { SubHeading } from "../../components/subHeader";
 import { useGetAllHackathonQuery } from "../../service/api";
 import { HomePageLoader } from "../../components/loader/homePageSckeleton";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 const Home = () => {
-  const { data, isLoading } = useGetAllHackathonQuery();
+  const { data, isLoading, isError } = useGetAllHackathonQuery();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error("something went wrong");
+    }
+  }, [isError]);
+
   const navigate = useNavigate();
   if (isLoading) {
     return <HomePageLoader />;
