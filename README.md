@@ -23,43 +23,43 @@ This repository contains the source code for the Hackathon Management System, wh
 # Technology Stack
 
 # Frontend
-  Framework: React.js
-  State Management: Redux toolkit
-  Styling: Bootstrap
-  API Handling: Rtk Query
+  1. Framework: React.js
+  2. State Management: Redux toolkit
+  3. Styling: Bootstrap
+  4. API Handling: Rtk Query
   
 # Backend
-  Framework: NodeJs
-  Database: MongoDB
-  Authentication: JSON Web Tokens (JWT)
-  APIs: RESTful endpoints
+  1. Framework: NodeJs
+  2. Database: MongoDB
+  3. Authentication: JSON Web Tokens (JWT)
+  4. APIs: RESTful endpoints
 
 # Deployment
-  Frontend : netlify
-  Backend : vercel
+  1. Frontend : netlify
+  2. Backend : vercel
 
 # Frontend Setup :
   1. Navigate to the frontend directory
-     # cd frontend
+     cd frontend
 
   2. Install dependencies
-     # npm install
+     npm install
 
   3. Start the development server
-     # npm run dev
+     npm run dev
 
 # Backend Setup
   1. Navigate to the backend directory:
-    # cd backend
+     cd backend
 
   2. Install dependencies:
-     # npm install
+     npm install
 
   3. Create an .env file in the backend directory
-     # PORT
-     # DB_URL
+     PORT
+     DB_URL
      
   5. Start the development server
-     # npm run start:dev  
+     npm run start:dev  
 
 
