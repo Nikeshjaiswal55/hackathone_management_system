@@ -3,10 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { routes } from "./routes";
 import { NavigationBar } from "./components/navbar";
 import ProtectedRoute from "./routes/protected.route";
-import { useAuth } from "./utils/useAuth";
 
 function App() {
-  const { isAuthenticated } = useAuth();
 
   return (
     <BrowserRouter>
@@ -22,7 +20,6 @@ function App() {
                   element={
                     <ProtectedRoute
                       element={element}
-                      isAuthenticated={isAuthenticated}
                     />
                   }
                 />
